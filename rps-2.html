@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Events!</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+  </head>
+
+<body>
+      <div class="container">
+          <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+              <div class="jumbotron">
+                <h2><span id="userGuess"><strong>Press "R", "P" or "S" to play!</strong></span></h2>
+                <h2><span id="compText"></span></h2>
+                <h2><span id="winText"></span></h2>
+                <h2><span id="lossText"></span></h2>
+                <h2><span id="tieText"></span></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <script type="text/javascript">
+
+    // Creates an array that lists out all of the options (Rock, Paper, or Scissors).
+    var computerChoices = ["R", "P", "S"];
+
+    // Let's start by grabbing a reference to the <span> below.
+    var userText = document.getElementById("userGuess");
+    var compText = document.getElementById("compText");
+    var winText = document.getElementById("winText");
+    var lossText = document.getElementById("lossText");
+    var tieText = document.getElementById("tieText");
+
+    // COUNTERS
+    var userWins = 0;
+    var userLosses = 0;
+    var userTies = 0;
+  
+
+
+  document.onkeyup = function(event) {
+   debugger;
+    // Determines which key was pressed.
+    var userGuess = event.key;
+    // Randomly chooses a choice from the options array. This is the Computer's guess.
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+    // Check condition to see if valid key press, if not do nothing
+    if (userGuess == "r" || userGuess == "p" || userGuess == "s") {
+        // Checks to see if game is a tie, increments userTies by 1
+        if(userGuess == computerGuess) {
+          userTies++;
+        } else {
+            if (userGuess == "r") {
+              if (computerGuess == "s") {
+                userWins++;
+              } else {
+              userLosses++;
+              }
+            }
+          if (userGuess == "s") {
+              if (computerGuess == "r") {
+                userLosses++;
+              }
+              if (computerGuess == "p") {
+                userWins++;
+              }
+          }
+          if (userGuess == "p") {
+            if (computerGuess == "s") {
+              userLosses++;
+            }
+            if (computerGuess == "r") {
+              userWins++;
+            }
+          }
+        }
+      }
+
+    // Prints to the page
+    userText.textContent = "You chose: " + event.key;
+    compText.textContent = "The comptuer chose: " + computerGuess;
+    winText.textContent = "Wins: " + userWins;
+    lossText.textContent = "Losses: " + userLosses;
+    tieText.textContent = "Ties: " + userTies;
+
+  };
+
+  </script>
+
+</body>
+
+</html>
